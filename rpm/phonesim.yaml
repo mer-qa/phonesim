@@ -1,0 +1,19 @@
+Name: phonesim
+Summary: Phone simulator.
+Version: 0.0.0
+Release: 1
+Group: Applications/System
+License: LGPL v2.1
+URL: http://github.com/nemomobile/phonesim
+Sources:
+    - "%{name}-%{version}.tar.bz2"
+Description: "%{summary}."
+
+PkgConfigBR:
+    - Qt5Gui
+
+Builder: qmake5
+Files:
+    - "%{_bindir}/phonesim"
+    - "%{_datadir}/phonesim/default.xml"
+
