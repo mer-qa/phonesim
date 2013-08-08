@@ -365,7 +365,7 @@ QSMSMessage::~QSMSMessage()
 QSMSMessagePrivate *QSMSMessage::dwrite()
 {
     // If we are the only user of the private object, return it as-is.
-    if ( d->ref == 1 )
+    if ( d->ref.load() == 1 )
         return d;
 
     // Create a new private object and copy the current contents into it.
