@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Phonesim
+Categories=Applications;
+Exec=/bin/systemctl --user start phonesim.service
+Icon=icons-Applications-dialer
+
+X-Desktop-File-Install-Version=0.19
+

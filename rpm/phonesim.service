@@ -1,0 +1,17 @@
+[Unit]
+Description=phonesim
+Requires=dbus.service
+Before=ofono.service
+
+[Service]
+ExecStart=/usr/bin/phonesim -p 12345 -gui /usr/share/phonesim/nemomobile.xml 
+Type=simple
+Restart=on-failure
+ExecStartPost=/usr/share/phonesim/exec_phonesim 1
+ExecStopPost=/usr/share/phonesim/exec_phonesim 0
+
+
+[Install]
+WantedBy=xorg.target
+
+

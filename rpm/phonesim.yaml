@@ -7,6 +7,13 @@ License: LGPL v2.1
 URL: http://github.com/nemomobile/phonesim
 Sources:
     - "%{name}-%{version}.tar.bz2"
+ExtraSources:
+    - phonesim.conf;%{_sysconfdir}/ofono/
+    - phonesim.desktop;%{_datadir}/applications/
+    - nemomobile.xml;%{_datadir}/phonesim/
+    - phonesim.service;%{_libdir}/systemd/user/
+    - ofono-phonesim.conf;%{_sysconfdir}/dbus-1/system.d/
+    - exec_phonesim;%{_datadir}/phonesim/
 Description: "%{summary}."
 
 PkgConfigBR:
@@ -16,4 +23,24 @@ Builder: qmake5
 Files:
     - "%{_bindir}/phonesim"
     - "%{_datadir}/phonesim/default.xml"
+    - "%{_datadir}/phonesim/exec_phonesim"
+    - "%config(noreplace) %{_sysconfdir}/ofono/phonesim.conf"
+    - "%{_datadir}/applications/phonesim.desktop"
+
+SubPackages:
+    # Configs package for phonesim. If vendor wants to change these settings
+    # they should install a package that provides "phonesim-configs".
+    - Name: configs-mer
+      Summary: Package to provide default configs for connman
+      Group: Development/Tools
+      Description: |
+        This package provides default configs for connman, such as
+        FallbackTimeservers.
+      Provides:
+        - "%{name}-configs"
+      Files:
+        - "%{_datadir}/phonesim/nemomobile.xml"
+        - "%{_sysconfdir}/ofono/phonesim.conf"
+        - "%{_libdir}/systemd/user/phonesim.service"
+        - "%{_sysconfdir}/dbus-1/system.d/ofono-phonesim.conf"
 

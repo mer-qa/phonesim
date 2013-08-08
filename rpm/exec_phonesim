@@ -1,0 +1,12 @@
+#!/bin/bash
+if [ "$1" == "1" ]; then
+    /bin/sleep 2
+    /bin/dbus-send --system --type=method_call --dest=org.ofono /phonesim org.ofono.Modem.SetProperty string:"Powered" variant:boolean:true
+    /bin/dbus-send --system --type=method_call --dest=org.ofono /phonesim org.ofono.Modem.SetProperty string:"Online" variant:boolean:true
+fi
+
+if [ "$1" == "0" ]; then
+    /bin/dbus-send --system --type=method_call --dest=org.ofono /phonesim org.ofono.Modem.SetProperty string:"Online" variant:boolean:false
+    /bin/dbus-send --system --type=method_call --dest=org.ofono /phonesim org.ofono.Modem.SetProperty string:"Powered" variant:boolean:false
+fi
+
