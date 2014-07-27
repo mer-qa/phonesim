@@ -1,3 +1,10 @@
+ver 1.20:
+	Fix issue with encoding of EFpnn.
+	Fix issue with hex quoted strings in CRSM.
+	Add support for SIMSTATE command and notification.
+	Add support for SIM refresh and re-init notification.
+	Add support for SIM PIN retry counters.
+
 ver 1.19:
 	Fix issue with automatic accept of magic numbers.
 	Fix issue with user-initiated USSD sessions.
