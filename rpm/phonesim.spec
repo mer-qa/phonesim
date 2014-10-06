@@ -9,11 +9,11 @@ Name:       phonesim
 # << macros
 
 Summary:    Phone simulator.
-Version:    0.0.0
+Version:    1.19.0
 Release:    1
 Group:      Applications/System
 License:    LGPL v2.1
-URL:        http://github.com/nemomobile/phonesim
+URL:        http://github.com/mer-qa/phonesim
 Source0:    %{name}-%{version}.tar.bz2
 Source1:    phonesim.conf
 Source2:    phonesim.desktop
@@ -23,6 +23,11 @@ Source5:    ofono-phonesim.conf
 Source6:    exec_phonesim
 Source100:  phonesim.yaml
 BuildRequires:  pkgconfig(Qt5Gui)
+BuildRequires:  pkgconfig(Qt5Xml)
+BuildRequires:  pkgconfig(Qt5Network)
+BuildRequires:  pkgconfig(Qt5Script)
+BuildRequires:  pkgconfig(Qt5DBus)
+BuildRequires:  pkgconfig(Qt5Widgets)
 BuildRequires:  desktop-file-utils
 
 %description
@@ -51,7 +56,7 @@ FallbackTimeservers.
 
 %qmake5 
 
-make %{?jobs:-j%jobs}
+make %{?_smp_mflags}
 
 # >> build post
 # << build post
