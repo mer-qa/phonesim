@@ -3,7 +3,7 @@ Type=Application
 Name=Phonesim
 Categories=Applications;
 Exec=/bin/systemctl --user start phonesim.service
-Icon=icons-Applications-dialer
+Icon=icon-launcher-default
 
-X-Desktop-File-Install-Version=0.19
+X-Desktop-File-Install-Version=0.20
 
