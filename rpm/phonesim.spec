@@ -22,6 +22,7 @@ Source4:    phonesim.service
 Source5:    ofono-phonesim.conf
 Source6:    exec_phonesim
 Source100:  phonesim.yaml
+Requires:   %{name}-configs
 BuildRequires:  pkgconfig(Qt5Gui)
 BuildRequires:  pkgconfig(Qt5Xml)
 BuildRequires:  pkgconfig(Qt5Network)

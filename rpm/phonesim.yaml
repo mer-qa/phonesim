@@ -16,6 +16,9 @@ ExtraSources:
     - exec_phonesim;%{_datadir}/phonesim/
 Description: "%{summary}."
 
+Requires:
+    - "%{name}-configs"
+
 PkgConfigBR:
     - Qt5Gui
     - Qt5Xml
