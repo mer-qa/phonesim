@@ -81,6 +81,7 @@ cp -a %{SOURCE6} %{buildroot}%{_datadir}/phonesim/
 
 
 # >> install post
+chmod 755 %{buildroot}%{_datadir}/phonesim/exec_phonesim
 # << install post
 
 desktop-file-install --delete-original       \
