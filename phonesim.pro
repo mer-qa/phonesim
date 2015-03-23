@@ -1,7 +1,7 @@
 TARGET = phonesim
 TEMPLATE = app
 INCLUDEPATH = src
-VERSION = 1.19
+VERSION = 1.20
 DEFINES += VERSION=\\\"$$VERSION\\\"
 
 QT = core gui xml network script dbus widgets
