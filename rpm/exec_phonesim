@@ -1,12 +1,14 @@
 #!/bin/bash
 if [ "$1" == "1" ]; then
+    echo "Enabling the phonesim modem"
     /bin/sleep 2
-    /bin/dbus-send --system --type=method_call --dest=org.ofono /phonesim org.ofono.Modem.SetProperty string:"Powered" variant:boolean:true
-    /bin/dbus-send --system --type=method_call --dest=org.ofono /phonesim org.ofono.Modem.SetProperty string:"Online" variant:boolean:true
+    /usr/bin/dbus-send --system --type=method_call --dest=org.ofono /phonesim org.ofono.Modem.SetProperty string:"Powered" variant:boolean:true
+    /usr/bin/dbus-send --system --type=method_call --dest=org.ofono /phonesim org.ofono.Modem.SetProperty string:"Online" variant:boolean:true
 fi
 
 if [ "$1" == "0" ]; then
-    /bin/dbus-send --system --type=method_call --dest=org.ofono /phonesim org.ofono.Modem.SetProperty string:"Online" variant:boolean:false
-    /bin/dbus-send --system --type=method_call --dest=org.ofono /phonesim org.ofono.Modem.SetProperty string:"Powered" variant:boolean:false
+    echo "Disabling the phonesim modem"
+    /usr/bin/dbus-send --system --type=method_call --dest=org.ofono /phonesim org.ofono.Modem.SetProperty string:"Online" variant:boolean:false
+    /usr/bin/dbus-send --system --type=method_call --dest=org.ofono /phonesim org.ofono.Modem.SetProperty string:"Powered" variant:boolean:false
 fi
 
