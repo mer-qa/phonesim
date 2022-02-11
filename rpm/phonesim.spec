@@ -2,8 +2,7 @@ Name:       phonesim
 Summary:    Phone simulator.
 Version:    1.19.0
 Release:    1
-Group:      Applications/System
-License:    LGPL v2.1
+License:    GPLv2
 URL:        http://github.com/mer-qa/phonesim
 Source0:    %{name}-%{version}.tar.bz2
 Source1:    phonesim.conf
@@ -26,7 +25,6 @@ BuildRequires:  desktop-file-utils
 
 %package configs-mer
 Summary:    Package to provide default configs for connman
-Group:      Development/Tools
 Requires:   %{name} = %{version}-%{release}
 Provides:   %{name}-configs
 
@@ -39,13 +37,10 @@ FallbackTimeservers.
 %setup -q -n %{name}-%{version}
 
 %build
-
 %qmake5 
-
 make %{?_smp_mflags}
 
 %install
-rm -rf %{buildroot}
 %qmake5_install
 mkdir -p %{buildroot}%{_sysconfdir}/ofono/
 cp -a %{SOURCE1} %{buildroot}%{_sysconfdir}/ofono/
@@ -69,9 +64,9 @@ desktop-file-install --delete-original       \
 %files
 %defattr(-,root,root,-)
 %{_bindir}/phonesim
+%dir %{_datadir}/phonesim
 %{_datadir}/phonesim/default.xml
 %{_datadir}/phonesim/exec_phonesim
-%config(noreplace) %{_sysconfdir}/ofono/phonesim.conf
 %{_datadir}/applications/phonesim.desktop
 
 %files configs-mer
