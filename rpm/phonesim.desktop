@@ -2,8 +2,10 @@
 Type=Application
 Name=Phonesim
 Categories=Applications;
-Exec=/bin/systemctl --user start phonesim.service
+Exec=/usr/bin/systemctl --user start phonesim.service
 Icon=icon-launcher-default
 
 X-Desktop-File-Install-Version=0.20
 
+[X-Sailjail]
+Sandboxing=Disabled
