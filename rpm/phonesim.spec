@@ -51,8 +51,8 @@ mkdir -p %{buildroot}%{_datadir}/phonesim/
 cp -a %{SOURCE3} %{buildroot}%{_datadir}/phonesim/
 mkdir -p %{buildroot}%{_userunitdir}
 cp -a %{SOURCE4} %{buildroot}%{_userunitdir}
-mkdir -p %{buildroot}%{_sysconfdir}/dbus-1/system.d/
-cp -a %{SOURCE5} %{buildroot}%{_sysconfdir}/dbus-1/system.d/
+mkdir -p %{buildroot}%{_datadir}/dbus-1/system.d/
+cp -a %{SOURCE5} %{buildroot}%{_datadir}/dbus-1/system.d/
 mkdir -p %{buildroot}%{_datadir}/phonesim/
 cp -a %{SOURCE6} %{buildroot}%{_datadir}/phonesim/
 
@@ -75,4 +75,4 @@ desktop-file-install --delete-original       \
 %{_datadir}/phonesim/nemomobile.xml
 %{_sysconfdir}/ofono/phonesim.conf
 %{_userunitdir}/phonesim.service
-%{_sysconfdir}/dbus-1/system.d/ofono-phonesim.conf
+%{_datadir}/dbus-1/system.d/ofono-phonesim.conf
