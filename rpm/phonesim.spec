@@ -18,6 +18,7 @@ BuildRequires:  pkgconfig(Qt5Network)
 BuildRequires:  pkgconfig(Qt5Script)
 BuildRequires:  pkgconfig(Qt5DBus)
 BuildRequires:  pkgconfig(Qt5Widgets)
+BuildRequires:  pkgconfig(systemd)
 BuildRequires:  desktop-file-utils
 
 %description
@@ -48,10 +49,10 @@ mkdir -p %{buildroot}%{_datadir}/applications/
 cp -a %{SOURCE2} %{buildroot}%{_datadir}/applications/
 mkdir -p %{buildroot}%{_datadir}/phonesim/
 cp -a %{SOURCE3} %{buildroot}%{_datadir}/phonesim/
-mkdir -p %{buildroot}%{_libdir}/systemd/user/
-cp -a %{SOURCE4} %{buildroot}%{_libdir}/systemd/user/
-mkdir -p %{buildroot}%{_sysconfdir}/dbus-1/system.d/
-cp -a %{SOURCE5} %{buildroot}%{_sysconfdir}/dbus-1/system.d/
+mkdir -p %{buildroot}%{_userunitdir}
+cp -a %{SOURCE4} %{buildroot}%{_userunitdir}
+mkdir -p %{buildroot}%{_datadir}/dbus-1/system.d/
+cp -a %{SOURCE5} %{buildroot}%{_datadir}/dbus-1/system.d/
 mkdir -p %{buildroot}%{_datadir}/phonesim/
 cp -a %{SOURCE6} %{buildroot}%{_datadir}/phonesim/
 
@@ -73,5 +74,5 @@ desktop-file-install --delete-original       \
 %defattr(-,root,root,-)
 %{_datadir}/phonesim/nemomobile.xml
 %{_sysconfdir}/ofono/phonesim.conf
-%{_libdir}/systemd/user/phonesim.service
-%{_sysconfdir}/dbus-1/system.d/ofono-phonesim.conf
+%{_userunitdir}/phonesim.service
+%{_datadir}/dbus-1/system.d/ofono-phonesim.conf
