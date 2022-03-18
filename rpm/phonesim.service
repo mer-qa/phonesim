@@ -6,6 +6,4 @@ Requires=dbus.service
 ExecStart=/usr/bin/phonesim -p 12345 -gui /usr/share/phonesim/nemomobile.xml 
 Type=simple
 Restart=on-failure
-ExecStartPost=/usr/share/phonesim/exec_phonesim 1
-ExecStopPost=/usr/share/phonesim/exec_phonesim 0
-
+ExecStartPost=/usr/bin/invoker --type generic /usr/libexec/exec_phonesim on

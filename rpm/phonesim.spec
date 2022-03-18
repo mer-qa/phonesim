@@ -10,7 +10,7 @@ Source2:    phonesim.desktop
 Source3:    nemomobile.xml
 Source4:    phonesim.service
 Source5:    ofono-phonesim.conf
-Source6:    exec_phonesim
+Source6:    exec_phonesim.privileges
 Requires:   %{name}-configs
 BuildRequires:  pkgconfig(Qt5Gui)
 BuildRequires:  pkgconfig(Qt5Xml)
@@ -53,10 +53,8 @@ mkdir -p %{buildroot}%{_userunitdir}
 cp -a %{SOURCE4} %{buildroot}%{_userunitdir}
 mkdir -p %{buildroot}%{_datadir}/dbus-1/system.d/
 cp -a %{SOURCE5} %{buildroot}%{_datadir}/dbus-1/system.d/
-mkdir -p %{buildroot}%{_datadir}/phonesim/
-cp -a %{SOURCE6} %{buildroot}%{_datadir}/phonesim/
-
-chmod 755 %{buildroot}%{_datadir}/phonesim/exec_phonesim
+mkdir -p %{buildroot}%{_datadir}/mapplauncherd/privileges.d/
+cp -a %{SOURCE6} %{buildroot}%{_datadir}/mapplauncherd/privileges.d/
 
 desktop-file-install --delete-original       \
   --dir %{buildroot}%{_datadir}/applications             \
@@ -64,11 +62,13 @@ desktop-file-install --delete-original       \
 
 %files
 %defattr(-,root,root,-)
+%license COPYING
 %{_bindir}/phonesim
 %dir %{_datadir}/phonesim
 %{_datadir}/phonesim/default.xml
-%{_datadir}/phonesim/exec_phonesim
+%{_libexecdir}/exec_phonesim
 %{_datadir}/applications/phonesim.desktop
+%{_datadir}/mapplauncherd/privileges.d/exec_phonesim.privileges
 
 %files configs-mer
 %defattr(-,root,root,-)

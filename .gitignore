@@ -15,4 +15,6 @@ autom4te.cache
 *.moc
 moc_*.*
 ui_*.*
-src/phonesim
+/src/phonesim
+/exec_phonesim/exec_phonesim
+*.list
