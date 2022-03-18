@@ -12,6 +12,7 @@ Source4:    phonesim.service
 Source5:    ofono-phonesim.conf
 Source6:    exec_phonesim
 Requires:   %{name}-configs
+Requires:   blts-tools
 BuildRequires:  pkgconfig(Qt5Gui)
 BuildRequires:  pkgconfig(Qt5Xml)
 BuildRequires:  pkgconfig(Qt5Network)
@@ -64,6 +65,7 @@ desktop-file-install --delete-original       \
 
 %files
 %defattr(-,root,root,-)
+%license COPYING
 %{_bindir}/phonesim
 %dir %{_datadir}/phonesim
 %{_datadir}/phonesim/default.xml
