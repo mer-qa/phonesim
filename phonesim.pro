@@ -9,8 +9,8 @@ QT = core gui xml network script dbus widgets
 target.path = /usr/bin
 INSTALLS += target
 
-xml.files = src/default.xml
-xml.path = /usr/share/phonesim/default.xml
+xml.files = src/default.xml src/GSMSpecification.xml
+xml.path = /usr/share/phonesim
 INSTALLS += xml
 
 HEADERS = \
