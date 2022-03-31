@@ -4,7 +4,7 @@ INCLUDEPATH = src
 VERSION = 1.20
 DEFINES += VERSION=\\\"$$VERSION\\\"
 
-QT = core gui xml network script dbus widgets
+QT = core gui xml network widgets
 
 target.path = /usr/bin
 INSTALLS += target
