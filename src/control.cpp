@@ -44,7 +44,6 @@
 ControlWidget::ControlWidget(const QString &ruleFile, Control *parent)
     : QWidget(), p(parent)
 {
-    QDBusConnection bus = QDBusConnection::sessionBus();
     QFileInfo info( ruleFile );
     QString specFile = info.absolutePath() + "/GSMSpecification.xml";
     if (!QFile::exists(specFile))
@@ -53,15 +52,6 @@ ControlWidget::ControlWidget(const QString &ruleFile, Control *parent)
 
     ui = new Ui_ControlBase;
     ui->setupUi(this);
-
-    script = new Script(this, ui);
-
-    if (!bus.registerService(SERVICE)) {
-        qWarning() << bus.lastError().message();
-        exit(-1);
-    }
-
-    bus.registerObject("/", script, QDBusConnection::ExportAllSlots);
 
     connect(ui->hsSignalQuality, SIGNAL(valueChanged(int)), this, SLOT(sendSQ()));
     connect(ui->hsBatteryCharge, SIGNAL(valueChanged(int)), this, SLOT(sendBC()));
@@ -111,7 +101,6 @@ void ControlWidget::closeEvent(QCloseEvent *event)
 
 ControlWidget::~ControlWidget()
 {
-    delete script;
     delete ui;
     delete translator;
 }
@@ -641,90 +630,4 @@ void ControlWidget::simAppAbort()
 void ControlWidget::modemSilentReset()
 {
     emit unsolicitedCommand("+CRST:");
-}
-
-Script::Script(QObject *obj, Ui_ControlBase *ui) : QDBusAbstractAdaptor(obj)
-{
-    /* Export tabs to be accessed by script */
-    QScriptValue qsTab = engine.newQObject(ui->tab);
-    engine.globalObject().setProperty("tabRegistration", qsTab);
-
-    QScriptValue qsTab2 = engine.newQObject(ui->tab_2);
-    engine.globalObject().setProperty("tabCBM", qsTab2);
-
-    QScriptValue qsTab3 = engine.newQObject(ui->tab_3);
-    engine.globalObject().setProperty("tabSMS", qsTab3);
-
-    QScriptValue qsTab4 = engine.newQObject(ui->tab_4);
-    engine.globalObject().setProperty("tabVoiceMail", qsTab4);
-
-    QScriptValue qsTab5 = engine.newQObject(ui->tab_5);
-    engine.globalObject().setProperty("tabUSSD", qsTab5);
-
-    QScriptValue qsTab6 = engine.newQObject(ui->tab_6);
-    engine.globalObject().setProperty("tabSIM", qsTab6);
-
-    QScriptValue qsTab8 = engine.newQObject(ui->tab_8);
-    engine.globalObject().setProperty("tabPosition", qsTab8);
-
-    QScriptValue qsTab9 = engine.newQObject(ui->tab_9);
-    engine.globalObject().setProperty("tabCall", qsTab9);
-}
-
-void Script::SetPath(const QString &path, const QDBusMessage &msg)
-{
-    QDir dir(path);
-    if (!dir.exists()) {
-        QDBusMessage reply = msg.createErrorReply(SERVICE "Error.PathNotFound", "Path doesn't exist");
-        QDBusConnection::sessionBus().send(reply);
-        return;
-    }
-
-    dirPath = path;
-}
-
-QString Script::GetPath()
-{
-    return dirPath;
-}
-
-QString Script::Run(const QString &name, const QDBusMessage &msg)
-{
-    QString fileName;
-
-    if (dirPath.endsWith('/'))
-        fileName = dirPath + name;
-    else
-        fileName = dirPath + "/" + name;
-
-    QFile scriptFile(fileName);
-
-    if (!scriptFile.open(QIODevice::ReadOnly)) {
-        QDBusMessage reply = msg.createErrorReply(SERVICE ".Error.FileNotFound", "Script file doesn't exist");
-        QDBusConnection::sessionBus().send(reply);
-        return QString();
-    }
-
-    QTextStream stream(&scriptFile);
-    stream.setCodec("UTF-8");
-    QString contents = stream.readAll();
-    scriptFile.close();
-
-    QScriptValue qsScript = engine.evaluate(contents);
-    if (qsScript.isError()) {
-        QString info = fileName + ", line " + qsScript.property("lineNumber").toString() + ", " + qsScript.toString();
-        QDBusMessage reply = msg.createErrorReply(SERVICE ".Error.ScriptExecError", info);
-        QDBusConnection::sessionBus().send(reply);
-        return QString();
-    }
-
-    /*
-     * If this QScriptValue is an object, calling this function has side effects on the script engine,
-     * since the engine will call the object's toString() function (and possibly valueOf()) in an attempt
-     * to convert the object to a primitive value (possibly resulting in an uncaught script exception).
-     */
-    if (qsScript.isObject() || qsScript.isUndefined())
-        return QString();
-
-    return qsScript.toString();
 }

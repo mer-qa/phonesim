@@ -9,15 +9,12 @@ Source1:    phonesim.conf
 Source2:    phonesim.desktop
 Source3:    nemomobile.xml
 Source4:    phonesim.service
-Source5:    ofono-phonesim.conf
 Source6:    exec_phonesim
 Requires:   %{name}-configs
 Requires:   blts-tools
 BuildRequires:  pkgconfig(Qt5Gui)
 BuildRequires:  pkgconfig(Qt5Xml)
 BuildRequires:  pkgconfig(Qt5Network)
-BuildRequires:  pkgconfig(Qt5Script)
-BuildRequires:  pkgconfig(Qt5DBus)
 BuildRequires:  pkgconfig(Qt5Widgets)
 BuildRequires:  pkgconfig(systemd)
 BuildRequires:  desktop-file-utils
@@ -52,8 +49,6 @@ mkdir -p %{buildroot}%{_datadir}/phonesim/
 cp -a %{SOURCE3} %{buildroot}%{_datadir}/phonesim/
 mkdir -p %{buildroot}%{_userunitdir}
 cp -a %{SOURCE4} %{buildroot}%{_userunitdir}
-mkdir -p %{buildroot}%{_datadir}/dbus-1/system.d/
-cp -a %{SOURCE5} %{buildroot}%{_datadir}/dbus-1/system.d/
 mkdir -p %{buildroot}%{_datadir}/phonesim/
 cp -a %{SOURCE6} %{buildroot}%{_datadir}/phonesim/
 
@@ -85,4 +80,3 @@ fi
 %{_datadir}/phonesim/nemomobile.xml
 %{_sysconfdir}/ofono/phonesim.conf
 %{_userunitdir}/phonesim.service
-%{_datadir}/dbus-1/system.d/ofono-phonesim.conf
