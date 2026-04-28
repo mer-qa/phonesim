@@ -1,6 +1,6 @@
 Name:       phonesim
 Summary:    Phone simulator.
-Version:    1.19.0
+Version:    1.20.0
 Release:    1
 License:    GPLv2
 URL:        http://github.com/mer-qa/phonesim
@@ -31,13 +31,12 @@ Provides:   %{name}-configs
 This package provides default configs for connman, such as
 FallbackTimeservers.
 
-
 %prep
 %setup -q -n %{name}-%{version}
 
 %build
-%qmake5 
-make %{?_smp_mflags}
+%qmake5
+%make_build
 
 %install
 %qmake5_install
@@ -52,31 +51,20 @@ cp -a %{SOURCE4} %{buildroot}%{_userunitdir}
 mkdir -p %{buildroot}%{_datadir}/phonesim/
 cp -a %{SOURCE6} %{buildroot}%{_datadir}/phonesim/
 
-chmod 755 %{buildroot}%{_datadir}/phonesim/exec_phonesim
-
 desktop-file-install --delete-original       \
   --dir %{buildroot}%{_datadir}/applications             \
    %{buildroot}%{_datadir}/applications/*.desktop
 
-# Remove a mistakenly created directory
-%pre
-if [ "$1" -eq 2 ]
-then
-    rm -rf %{_datadir}/phonesim/default.xml
-fi
-
 %files
-%defattr(-,root,root,-)
 %license COPYING
 %{_bindir}/phonesim
 %dir %{_datadir}/phonesim
 %{_datadir}/phonesim/default.xml
 %{_datadir}/phonesim/GSMSpecification.xml
-%{_datadir}/phonesim/exec_phonesim
+%attr(755, root, root) %{_datadir}/phonesim/exec_phonesim
 %{_datadir}/applications/phonesim.desktop
 
 %files configs-mer
-%defattr(-,root,root,-)
 %{_datadir}/phonesim/nemomobile.xml
 %{_sysconfdir}/ofono/phonesim.conf
 %{_userunitdir}/phonesim.service
